@@ -56,6 +56,13 @@ RUN --mount=type=cache,target=${BUILDDIR}/riscv-gnu-toolchain \
 
 FROM debian:bookworm-slim
 
+RUN set -x \
+    && apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        libmpc3 libmpfr6 libgmp10 libexpat1 libglib2.0-0 \
+    && apt-get clean \
+    && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+
 ENV RISCV=/opt/riscv
 ENV PATH=${RISCV}/rv32/bin:${RISCV}/rv64/bin:${PATH}
 
