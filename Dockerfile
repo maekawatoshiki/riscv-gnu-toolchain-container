@@ -17,8 +17,7 @@ ENV RISCV=/opt/riscv
 
 WORKDIR ${BUILDDIR}/riscv-gnu-toolchain
 
-RUN --mount=type=cache,target=${BUILDDIR}/riscv-gnu-toolchain \
-    set -x \
+RUN set -x \
     && git init \
     && git remote add origin https://github.com/riscv-collab/riscv-gnu-toolchain \
     && git fetch --depth 1 origin 6da3855437e8ab7a8272400287186d5242610172 \
@@ -28,8 +27,7 @@ WORKDIR ${BUILDDIR}/build-rv32
 
 # Our targets are unknown-linux-gnu-* and unknown-elf-*.
 # `--disable-multilib` avoids the use of C extension.
-RUN --mount=type=cache,target=${BUILDDIR}/riscv-gnu-toolchain \
-    set -x \
+RUN set -x \
     && ../riscv-gnu-toolchain/configure \
         --prefix=${RISCV}/rv32 \
         --with-arch=rv32imafd_zifencei \
@@ -41,8 +39,7 @@ RUN --mount=type=cache,target=${BUILDDIR}/riscv-gnu-toolchain \
 
 WORKDIR ${BUILDDIR}/build-rv64
 
-RUN --mount=type=cache,target=${BUILDDIR}/riscv-gnu-toolchain \
-    set -x \
+RUN set -x \
     && ../riscv-gnu-toolchain/configure \
         --prefix=${RISCV}/rv64 \
         --with-arch=rv64imafd_zifencei \
