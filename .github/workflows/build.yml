@@ -17,6 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Free up disk
+        run: |
+          df -h
+          sudo rm -rf /usr/local/lib/android
+          df -h
+
       - name: Docker build
         run: |
           docker build -t riscv-gcc:12.2.0 -f Dockerfile .
